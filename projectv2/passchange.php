@@ -41,14 +41,16 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
-                <h2><center>Login</center></h2>
-                <form action=verify.php method=POST align="center">
-                    <label for="username">Username:</label>
-                    <input type="text" data-clear-btn="true" name="username" id="text_1" value="">
-                    <label for="password">Password:</label>
-                    <input type="text" data-clear-btn="true" name="password" id="text_1" value="">
-                    <input type="submit" value="Login">
-                </form>
+
+    <form action="update.php" method="POST">
+        Old Password: <input type=password name=oldPassword>
+        <br />
+        <br />
+        New Password: <input type=password name=newPassword>
+        <br />
+        <br />
+        <input type=submit name=Change>
+    </form>
                 <?PHP
                 echo "<h4><center>BlackBoard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
                 ?>

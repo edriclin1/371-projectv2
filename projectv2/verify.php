@@ -35,13 +35,13 @@ $row = mysqli_fetch_array($r);
                 //print_r($_POST);
 
                 // check correct password
-                if($_POST["password"] == $row["password"]) {
+                if($_POST["password"] == $row["password"] && !empty($_POST["username"]) && isset($row)) {
                     echo "<center><h1>Welcome, " . $row["given_name"] . " " . $row["family_name"] . "!<h1></center>";
-                    echo "<center><a href=\"https://edriclin1.ddns.net:9012/projectv2/account.php\">Go to your account.</a></center>";
+                    echo "<center><a href=\"account.php\">Go to your account.</a></center>";
                     $_SESSION['auth'] = $_POST['username'];
                 } else {
                     echo "<center><h1>Oops! You entered an invalid username and password.</h1></center>";
-                    echo "<center><a href=\"https://edriclin1.ddns.net:9012/projectv2/login.php\">Return to the sign in page.</a></center>";
+                    echo "<center><a href=\"login.php\">Return to the sign in page.</a></center>";
                     //logout
                     $_SESSION['auth'] = "";
                 }

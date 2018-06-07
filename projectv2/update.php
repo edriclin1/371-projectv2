@@ -25,7 +25,7 @@ $learn = $rest->readVersion($access_token);
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Electric Currents Blackboard v2 - Login</title>
+        <title>Password Changed</title>
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
@@ -41,14 +41,13 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
-                <h2><center>Login</center></h2>
-                <form action=verify.php method=POST align="center">
-                    <label for="username">Username:</label>
-                    <input type="text" data-clear-btn="true" name="username" id="text_1" value="">
-                    <label for="password">Password:</label>
-                    <input type="text" data-clear-btn="true" name="password" id="text_1" value="">
-                    <input type="submit" value="Login">
-                </form>
+    
+    <h3><center>
+        Your password has successfully been changed. Please click the link below to return to the homepage.
+        </center></h3>
+    <br />
+    <br />
+                <center><a href="account.php">Return Home</a></center>
                 <?PHP
                 echo "<h4><center>BlackBoard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
                 ?>
