@@ -63,7 +63,8 @@ $r = mysqli_query($l,$query);
 // recreate students table
 $query = "CREATE TABLE Courses (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(50) NOT NULL
+    course_name VARCHAR(50) NOT NULL,
+    num_enrolled INT
     )";
 $r = mysqli_query($l,$query);
 
@@ -76,7 +77,7 @@ foreach($c as $row) {
     echo $course_name."<br>";
 
     // insert fields into database
-    $query = "INSERT INTO Courses (course_name) values ('$course_name')";
+    $query = "INSERT INTO Courses (course_name, num_enrolled) values ('$course_name', 0)";
     $r = mysqli_query($l,$query);
 }
 
