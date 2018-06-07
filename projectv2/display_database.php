@@ -40,7 +40,7 @@ $r = mysqli_query($l,$query);
 
 //working with the recordset
 echo "<table border=1 cellpadding=10 >";
-echo "<tr><th>ID</th><th>Course Name</th>></tr>";
+echo "<tr><th>ID</th><th>Course Name</th><th>Number Enrolled</th></tr>";
 
 // display courses table
 while($row=mysqli_fetch_array($r)) {
@@ -49,6 +49,8 @@ while($row=mysqli_fetch_array($r)) {
             echo $row['id'];
         echo "</td><td>";
             echo $row['course_name'];
+        echo "</td><td>";
+            echo $row['num_enrolled'];
         echo "</td>";
     echo "</tr>";
 }
