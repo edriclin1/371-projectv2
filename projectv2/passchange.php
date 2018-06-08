@@ -1,10 +1,4 @@
 <?PHP
-// connect to mysql database
-$l = mysqli_connect("localhost:6306", "student12", "pass12", "student12");
-
-// query to populate combobox search
-$query = "SELECT * FROM Students ORDER BY user_name";
-$r = mysqli_query($l, $query);
 
 // connect to blackboard rest api
 $clientURL = "http://bb.dataii.com:8080";
@@ -41,22 +35,34 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
+                <?php
+                session_start();
 
-    <form action="update.php" method="POST">
-        Old Password: <input type=password name=oldPassword>
-        <br />
-        <br />
-        New Password: <input type=password name=newPassword>
-        <br />
-        <br />
-        <input type=submit name=Change>
-    </form>
-                <?PHP
-                echo "<h4><center>BlackBoard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                // check if not logged in
+                if ($_SESSION['auth'] == "") {
+                    echo "<center><h1>Oops! You are not signed in.</h1></center>";
+                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "</div>";
+                    echo "<div data-role=\"footer\">";
+                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "</div><!-- footer -->";
+                    die();
+                }
                 ?>
-
+                <form action="update.php" method="POST" align="center">
+                    <label for="oldPassword">Old Password:</label>
+                    <input type="text" data-clear-btn="true" name="oldPassword" id="text_1" value="">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" data-clear-btn="true" name="newPassword" id="text_1" value="">
+                    <input type=submit value="Submit">
+                </form>
             </div>
             <!-- /content -->
+            <div data-role="footer">
+                <?PHP
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                ?>
+            </div><!-- footer -->
         </div>
         <!-- /page one -->
     </body>

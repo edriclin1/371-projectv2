@@ -1,15 +1,30 @@
 <?PHP
+session_start();
 
 // connect to mysql database
 $l=mysqli_connect("localhost:6306","student12","pass12","student12");
 
-// select entire students table
+// select student row with username
 $query = "SELECT * FROM Students WHERE user_name LIKE '".$_POST["username"]."'";
 //echo $query;
 
 //executing query
 $r = mysqli_query($l,$query);
 $row = mysqli_fetch_array($r);
+
+// connect to blackboard rest api
+$clientURL = "http://bb.dataii.com:8080";
+
+require_once('classes/Rest.class.php');
+require_once('classes/Token.class.php');
+
+$rest = new Rest($clientURL);
+$token = new Token();
+
+$token = $rest->authorize();
+$access_token = $token->access_token;
+
+$learn = $rest->readVersion($access_token);
 
 ?>
 
@@ -31,7 +46,6 @@ $row = mysqli_fetch_array($r);
             <!-- /header -->
             <div data-role="content" >
                 <?PHP
-                session_start();
                 //print_r($_POST);
 
                 // check correct password
@@ -48,6 +62,11 @@ $row = mysqli_fetch_array($r);
                 ?>
             </div>
             <!-- /content -->
+            <div data-role="footer">
+                <?PHP
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                ?>
+            </div><!-- footer -->
         </div>
         <!-- /page one -->
     </body>

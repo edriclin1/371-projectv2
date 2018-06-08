@@ -1,10 +1,4 @@
 <?PHP
-// connect to mysql database
-$l = mysqli_connect("localhost:6306", "student12", "pass12", "student12");
-
-// query to populate combobox search
-$query = "SELECT * FROM Students ORDER BY user_name";
-$r = mysqli_query($l, $query);
 
 // connect to blackboard rest api
 $clientURL = "http://bb.dataii.com:8080";
@@ -41,7 +35,6 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
-                <h2><center>Login</center></h2>
                 <form action=verify.php method=POST align="center">
                     <label for="username">Username:</label>
                     <input type="text" data-clear-btn="true" name="username" id="text_1" value="">
@@ -52,10 +45,9 @@ $learn = $rest->readVersion($access_token);
 
             </div>
             <!-- /content -->
-            
             <div data-role="footer">
                 <?PHP
-                echo "<h4><center>BlackBoard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
                 ?>
             </div><!-- footer -->
         </div>

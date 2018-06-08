@@ -12,7 +12,7 @@ $r = mysqli_query($l,$query);
 
 //working with the recordset
 echo "<table border=1 cellpadding=10 >";
-echo "<tr><th>ID</th><th>Username</th><th>Given Name</th><th>Family Name</th></tr>";
+echo "<tr><th>ID</th><th>Username</th><th>Given Name</th><th>Family Name</th><th>Password</th></tr>";
 
 // display students table
 while($row=mysqli_fetch_array($r)) {
@@ -25,6 +25,8 @@ while($row=mysqli_fetch_array($r)) {
             echo $row['given_name'];
         echo "</td><td>";
             echo $row['family_name'];
+        echo "</td><td>";
+            echo $row['password'];
         echo "</td>";
     echo "</tr>";
 }

@@ -34,7 +34,7 @@ $query = "CREATE TABLE Students (
     user_name VARCHAR(30) NOT NULL,
     given_name VARCHAR(30) NOT NULL,
     family_name VARCHAR(30) NOT NULL,
-    password VARCHAR(8)
+    password VARCHAR(15)
     )";
 $r = mysqli_query($l,$query);
 
@@ -74,7 +74,7 @@ foreach($c as $row) {
     // get course fields
     $course_name = $row->name;
 
-    echo $course_name."<br>";
+    //echo $course_name."<br>";
 
     // insert fields into database
     $query = "INSERT INTO Courses (course_name, num_enrolled) values ('$course_name', 0)";

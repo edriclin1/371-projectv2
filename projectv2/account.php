@@ -1,10 +1,18 @@
 <?PHP
-// connect to mysql database
-$l = mysqli_connect("localhost:6306", "student12", "pass12", "student12");
 
-// query to populate combobox search
-$query = "SELECT * FROM Students ORDER BY user_name";
-$r = mysqli_query($l, $query);
+// connect to blackboard rest api
+$clientURL = "http://bb.dataii.com:8080";
+
+require_once('classes/Rest.class.php');
+require_once('classes/Token.class.php');
+
+$rest = new Rest($clientURL);
+$token = new Token();
+
+$token = $rest->authorize();
+$access_token = $token->access_token;
+
+$learn = $rest->readVersion($access_token);
 
 ?>
 <html>
@@ -27,18 +35,37 @@ $r = mysqli_query($l, $query);
             </div>
             <!-- /header -->
             <div data-role="content" >
-        <!--careful with the website names and accessing different pages-->
-        <p>Welcome to BlackBoard V2! You are welcome to register for courses, check your grades, and modify your account.</p>
-        <br />
-        <br />
-        <center><a href="passchange.php">Change Password</a></center>
-        <br />
-        <center><a href="">Register</a></center>
-        <br />
-        <center><a href="">Current Grades</a></center>
-        <br />
+                <?php
+                session_start();
+
+                // check if not logged in
+                if ($_SESSION['auth'] == "") {
+                    echo "<center><h1>Oops! You are not signed in.</h1></center>";
+                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "</div>";
+                    echo "<div data-role=\"footer\">";
+                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "</div><!-- footer -->";
+                    die();
+                }
+                ?>
+                <!--careful with the website names and accessing different pages-->
+                <p><center>Welcome to Blackboard V2! You are welcome to register for courses, check your grades, and modify your account.</center></p>
+                <br />
+                <br />
+                <center><a href="passchange.php">Change Password</a></center>
+                <br />
+                <center><a href="">Register</a></center>
+                <br />
+                <center><a href="">Current Grades</a></center>
+                <br />
             </div>
             <!-- /content -->
+            <div data-role="footer">
+                <?PHP
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                ?>
+            </div><!-- footer -->
         </div>
         <!-- /page one -->
     </body>
