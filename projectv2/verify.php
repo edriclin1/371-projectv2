@@ -54,7 +54,7 @@ $learn = $rest->readVersion($access_token);
                     echo "<center><a href=\"account.php\">Go to your account.</a></center>";
                     $_SESSION['auth'] = $_POST['username'];
                 } else {
-                    echo "<center><h1>Oops! You entered an invalid username and password.</h1></center>";
+                    echo "<center><h2>Oops! You entered an invalid username and password.</h2></center>";
                     echo "<center><a href=\"login.php\">Return to the sign in page.</a></center>";
                     //logout
                     $_SESSION['auth'] = "";

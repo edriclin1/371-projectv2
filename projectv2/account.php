@@ -1,5 +1,8 @@
 <?PHP
 
+// connect to mysql database
+$l=mysqli_connect("localhost:6306","student12","pass12","student12");
+
 // connect to blackboard rest api
 $clientURL = "http://bb.dataii.com:8080";
 
@@ -40,7 +43,7 @@ $learn = $rest->readVersion($access_token);
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
-                    echo "<center><h1>Oops! You are not signed in.</h1></center>";
+                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
                     echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
                     echo "</div>";
                     echo "<div data-role=\"footer\">";
@@ -49,16 +52,11 @@ $learn = $rest->readVersion($access_token);
                     die();
                 }
                 ?>
-                <!--careful with the website names and accessing different pages-->
-                <p><center>Welcome to Blackboard V2! You are welcome to register for courses, check your grades, and modify your account.</center></p>
-                <br />
+                <h3><center>Welcome to Blackboard V2! You are welcome to register for courses, check your grades, and modify your account.</center></h3>
                 <br />
                 <center><a href="passchange.php">Change Password</a></center>
                 <br />
-                <center><a href="">Register</a></center>
-                <br />
-                <center><a href="">Current Grades</a></center>
-                <br />
+                <center><a href="courses.php">View/Register for Courses</a></center>
             </div>
             <!-- /content -->
             <div data-role="footer">
@@ -67,6 +65,5 @@ $learn = $rest->readVersion($access_token);
                 ?>
             </div><!-- footer -->
         </div>
-        <!-- /page one -->
     </body>
 </html>

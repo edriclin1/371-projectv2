@@ -34,7 +34,8 @@ $query = "CREATE TABLE Students (
     user_name VARCHAR(30) NOT NULL,
     given_name VARCHAR(30) NOT NULL,
     family_name VARCHAR(30) NOT NULL,
-    password VARCHAR(15)
+    password VARCHAR(15),
+    UNIQUE (user_name)
     )";
 $r = mysqli_query($l,$query);
 
@@ -60,11 +61,12 @@ foreach($u as $row) {
 $query = "DROP TABLE Courses";
 $r = mysqli_query($l,$query);
 
-// recreate students table
+// recreate courses table
 $query = "CREATE TABLE Courses (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(50) NOT NULL,
-    num_enrolled INT
+    num_enrolled INT,
+    UNIQUE (course_name)
     )";
 $r = mysqli_query($l,$query);
 
@@ -80,5 +82,19 @@ foreach($c as $row) {
     $query = "INSERT INTO Courses (course_name, num_enrolled) values ('$course_name', 0)";
     $r = mysqli_query($l,$query);
 }
+
+// delete enrolled table if one has already been created
+$query = "DROP TABLE Enrolled";
+$r = mysqli_query($l,$query);
+
+// recreate enrolled table
+$query = "CREATE TABLE Enrolled (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(30) NOT NULL,
+    course_name VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_name) REFERENCES Students(user_name),
+    FOREIGN KEY (course_name) REFERENCES Courses(course_name)
+    )";
+$r = mysqli_query($l,$query);
 
 ?>

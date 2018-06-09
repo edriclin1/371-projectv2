@@ -30,7 +30,6 @@ while($row=mysqli_fetch_array($r)) {
         echo "</td>";
     echo "</tr>";
 }
-
 echo "</table>";
 
 // select entire courses table
@@ -56,7 +55,31 @@ while($row=mysqli_fetch_array($r)) {
         echo "</td>";
     echo "</tr>";
 }
+echo "</table>";
 
+// select entire enrolled table
+$query = "SELECT * FROM Enrolled";
+echo $query;
+
+//executing query
+$r = mysqli_query($l,$query);
+
+//working with the recordset
+echo "<table border=1 cellpadding=10 >";
+echo "<tr><th>ID</th><th>Username</th><th>Course Name</th></tr>";
+
+// display enrolled table
+while($row=mysqli_fetch_array($r)) {
+    echo "<tr>";
+        echo "<td>";
+            echo $row['id'];
+        echo "</td><td>";
+            echo $row['user_name'];
+        echo "</td><td>";
+            echo $row['course_name'];
+        echo "</td>";
+    echo "</tr>";
+}
 echo "</table>";
 
 ?>

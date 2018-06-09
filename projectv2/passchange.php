@@ -40,7 +40,7 @@ $learn = $rest->readVersion($access_token);
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
-                    echo "<center><h1>Oops! You are not signed in.</h1></center>";
+                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
                     echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
                     echo "</div>";
                     echo "<div data-role=\"footer\">";
