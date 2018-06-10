@@ -55,16 +55,74 @@ $learn = $rest->readVersion($access_token);
 
                 echo "<center><h2>Enrolled Courses for ".$_SESSION['auth']."</h2></center>";
 
+                // enroll user for courses that they registered for
+                $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
+                $r = mysqli_query($l,$query);
+                echo $query;
+
                 // select courses user is enrolled in
                 $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
                 $r = mysqli_query($l,$query);
 
-                // display enrolled table
+                // display courses user is enrolled in
                 echo "<ul data-role=\"listview\" data-inset=\"true\">";
                 while($row=mysqli_fetch_array($r)) {
                     echo "<li>".$row['course_name']."</li>";
                 }
                 echo "</ul>";
+                echo "<center><a href=\"courses.php#two\">Click here to register for more courses.</a></center>";
+                echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
+
+                ?>
+            </div>
+            <!-- /content -->
+            <div data-role="footer">
+                <?PHP
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                ?>
+            </div><!-- footer -->
+        </div>
+
+        <!-- Start of first page: #two -->
+        <div data-role="page" id="two">
+            <div data-role="header">
+                <h1>Electric Currents Blackboard v2</h1>
+            </div>
+            <!-- /header -->
+            <div data-role="content" >
+                <?php
+                session_start();
+
+                // check if not logged in
+                if ($_SESSION['auth'] == "") {
+                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
+                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "</div>";
+                    echo "<div data-role=\"footer\">";
+                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "</div><!-- footer -->";
+                    die();
+                }
+
+                echo "<center><h2>Select a course to register for:</h2></center>";
+
+                // select all courses
+                $query = "SELECT * FROM Courses";
+                $r = mysqli_query($l,$query);
+
+                echo "<form action=courses.php#one method=POST align=\"center\">";
+                echo "<select name=\"course_name\" id=\"select-choice-1\">";
+
+                // display all courses
+                while($row=mysqli_fetch_array($r)) {
+                    echo "<option value='".$row['course_name']."'>".$row['course_name']."</option>";
+                }
+                echo "</select>";
+                echo "<input type=\"submit\" value=\"Register\">";
+                echo "</form>";
+
+                echo "</ul>";
+                echo "<center><a href=\"courses.php#one\">Click here to view your enrolled courses.</a></center>";
                 echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
 
                 ?>

@@ -52,11 +52,12 @@ $learn = $rest->readVersion($access_token);
                     die();
                 }
                 ?>
-                <h3><center>Welcome to Blackboard V2! You are welcome to register for courses, check your grades, and modify your account.</center></h3>
-                <br />
-                <center><a href="passchange.php">Change Password</a></center>
+                <h2><center>Welcome to Blackboard V2! </center></h2>
+                <h3><center>Register for courses or change your password below.</center></h3>
                 <br />
                 <center><a href="courses.php">View/Register for Courses</a></center>
+                <center><a href="passchange.php">Change Password</a></center>
+                <br />
             </div>
             <!-- /content -->
             <div data-role="footer">
