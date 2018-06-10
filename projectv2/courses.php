@@ -36,6 +36,14 @@ $learn = $rest->readVersion($access_token);
         <div data-role="page" id="one">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
+                <div data-role="navbar" data-grid="c">
+                    <ul>
+                        <li><a href="account.php">Account</a></li>
+                        <li><a href="courses.php" class="ui-btn-active">Courses</a></li>
+                        <li><a href="passchange.php">Change Password</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div><!-- /navbar -->
             </div>
             <!-- /header -->
             <div data-role="content" >
@@ -70,8 +78,8 @@ $learn = $rest->readVersion($access_token);
                     echo "<li>".$row['course_name']."</li>";
                 }
                 echo "</ul>";
-                echo "<center><a href=\"courses.php#two\">Click here to register for more courses.</a></center>";
-                echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
+                echo "<center><a data-role=\"button\" href=\"#two\">Register for Courses</a></center>";
+                // echo "<center><a href=\"account.php\">Return to Account</a></center>";
 
                 ?>
             </div>
@@ -87,6 +95,14 @@ $learn = $rest->readVersion($access_token);
         <div data-role="page" id="two">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
+                <div data-role="navbar" data-grid="c">
+                    <ul>
+                        <li><a href="account.php">Account</a></li>
+                        <li><a href="courses.php" class="ui-btn-active">Courses</a></li>
+                        <li><a href="passchange.php">Change Password</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div><!-- /navbar -->
             </div>
             <!-- /header -->
             <div data-role="content" >
@@ -122,8 +138,8 @@ $learn = $rest->readVersion($access_token);
                 echo "</form>";
 
                 echo "</ul>";
-                echo "<center><a href=\"courses.php#one\">Click here to view your enrolled courses.</a></center>";
-                echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
+                echo "<center><a data-role=\"button\" href=\"#one\">View Enrolled Courses</a></center>";
+                // echo "<center><a href=\"account.php\">Return to Account</a></center>";
 
                 ?>
             </div>

@@ -33,13 +33,14 @@ $learn = $rest->readVersion($access_token);
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Electric Currents Blackboard v2 - Verifying Login</title>
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
     </head>
     <body>
         <!-- Start of first page: #one -->
-        <div data-role="page" id="one">
+        <div data-role="page" id="verify">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
             </div>
@@ -53,6 +54,7 @@ $learn = $rest->readVersion($access_token);
                     echo "<center><h1>Welcome, " . $row["given_name"] . " " . $row["family_name"] . "!<h1></center>";
                     echo "<center><a href=\"account.php\">Go to your account.</a></center>";
                     $_SESSION['auth'] = $_POST['username'];
+                    echo $_SESSION['auth'];
                 } else {
                     echo "<center><h2>Oops! You entered an invalid username and password.</h2></center>";
                     echo "<center><a href=\"login.php\">Return to the sign in page.</a></center>";

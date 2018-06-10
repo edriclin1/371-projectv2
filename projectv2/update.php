@@ -22,6 +22,7 @@ $learn = $rest->readVersion($access_token);
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Password Changed</title>
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
@@ -31,9 +32,17 @@ $learn = $rest->readVersion($access_token);
     </head>
     <body>
         <!-- Start of first page: #one -->
-        <div data-role="page" id="one">
+        <div data-role="page" id="update">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
+                <div data-role="navbar" data-grid="c">
+                    <ul>
+                        <li><a href="account.php">Account</a></li>
+                        <li><a href="courses.php">Courses</a></li>
+                        <li><a href="passchange.php" class="ui-btn-active">Change Password</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div><!-- /navbar -->
             </div>
             <!-- /header -->
             <div data-role="content" >
@@ -72,7 +81,7 @@ $learn = $rest->readVersion($access_token);
                     } else {
                         echo "<center><h2>Oops! You did not enter the correct old password.</h2></center>";
                     }
-                    echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
+                    // echo "<center><a href=\"account.php\">Click here to return to your account page.</a></center>";
                 }
                 ?>
             </div>

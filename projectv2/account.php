@@ -25,6 +25,7 @@ $learn = $rest->readVersion($access_token);
         <title>Electric Currents Blackboard v2 - Login</title>
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/_assets/js/index.js"></script>
@@ -32,14 +33,23 @@ $learn = $rest->readVersion($access_token);
     </head>
     <body>
         <!-- Start of first page: #one -->
-        <div data-role="page" id="one">
+        <div data-role="page" id="account">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
+                <div data-role="navbar" data-grid="c">
+                    <ul>
+                        <li><a href="account.php" class="ui-btn-active">Account</a></li>
+                        <li><a href="courses.php">Courses</a></li>
+                        <li><a href="passchange.php">Change Password</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div><!-- /navbar -->
             </div>
             <!-- /header -->
             <div data-role="content" >
                 <?php
                 session_start();
+                echo $_SESSION['auth'];
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
@@ -53,11 +63,14 @@ $learn = $rest->readVersion($access_token);
                 }
                 ?>
                 <h2><center>Welcome to Blackboard V2! </center></h2>
-                <h3><center>Register for courses or change your password below.</center></h3>
+                <h3><center>Register for courses or change your password using the tabs above.</center></h3>
                 <br />
+                <!--
                 <center><a href="courses.php">View/Register for Courses</a></center>
                 <center><a href="passchange.php">Change Password</a></center>
+                <center><a href="logout.php">Log Out</a></center>
                 <br />
+                -->
             </div>
             <!-- /content -->
             <div data-role="footer">

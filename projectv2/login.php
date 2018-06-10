@@ -20,6 +20,7 @@ $learn = $rest->readVersion($access_token);
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Electric Currents Blackboard v2 - Login</title>
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
@@ -29,7 +30,7 @@ $learn = $rest->readVersion($access_token);
     </head>
     <body>
         <!-- Start of first page: #one -->
-        <div data-role="page" id="one">
+        <div data-role="page" id="login">
             <div data-role="header">
                 <h1>Electric Currents Blackboard v2</h1>
             </div>
@@ -39,7 +40,7 @@ $learn = $rest->readVersion($access_token);
                     <label for="username">Username:</label>
                     <input type="text" data-clear-btn="true" name="username" id="text_1" value="">
                     <label for="password">Password:</label>
-                    <input type="text" data-clear-btn="true" name="password" id="text_1" value="">
+                    <input type="password" data-clear-btn="true" name="password" id="text_1" value="">
                     <input type="submit" value="Login">
                 </form>
 
