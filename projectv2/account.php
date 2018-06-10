@@ -1,21 +1,7 @@
 <?PHP
 
-// connect to mysql database
-$l=mysqli_connect("localhost:6306","student12","pass12","student12");
-
-// connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
-
-$learn = $rest->readVersion($access_token);
+require("database_connection.php");
+require("blackboard_connection.php");
 
 ?>
 <html>
@@ -47,21 +33,7 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
-                <?php
-                session_start();
-                echo $_SESSION['auth'];
-
-                // check if not logged in
-                if ($_SESSION['auth'] == "") {
-                    echo "<h2>Oops! You are not signed in.</h2>";
-                    echo "<a href=\"login.php\">Click here to sign in.</a>";
-                    echo "</div>";
-                    echo "<div data-role=\"footer\">";
-                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
-                    echo "</div><!-- footer -->";
-                    die();
-                }
-                ?>
+                <?php require("confirm_logged_in.php"); ?>
                 <h2>Welcome to Blackboard V2!</h2>
                 <h3>Register for courses or change your password using the tabs above.</h3>
                 <br />

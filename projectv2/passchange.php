@@ -1,18 +1,6 @@
 <?PHP
 
-// connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
-
-$learn = $rest->readVersion($access_token);
+require("blackboard_connection.php");
 
 ?>
 <html>
@@ -44,20 +32,7 @@ $learn = $rest->readVersion($access_token);
             </div>
             <!-- /header -->
             <div data-role="content" >
-                <?php
-                session_start();
-
-                // check if not logged in
-                if ($_SESSION['auth'] == "") {
-                    echo "<h2>Oops! You are not signed in.</h2>";
-                    echo "<a href=\"login.php\">Click here to sign in.</a>";
-                    echo "</div>";
-                    echo "<div data-role=\"footer\">";
-                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
-                    echo "</div><!-- footer -->";
-                    die();
-                }
-                ?>
+                <?php require("confirm_logged_in.php"); ?>
                 <h2>Password Change</h2>
                 <h3>Enter your current password and desired new password.</h3>
                 <br>

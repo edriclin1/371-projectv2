@@ -1,18 +1,6 @@
 <?PHP
 
-// connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
-
-$learn = $rest->readVersion($access_token);
+require("blackboard_connection.php");
 
 ?>
 <html>
@@ -27,6 +15,7 @@ $learn = $rest->readVersion($access_token);
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/_assets/js/index.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.mobile-1.3.2.min.js"></script>
+        <script src="easter_egg.js"></script>
     </head>
     <body>
         <!-- Start of first page: #one -->
@@ -35,15 +24,15 @@ $learn = $rest->readVersion($access_token);
                 <h1>Electric Currents Blackboard v2</h1>
             </div>
             <!-- /header -->
-            <div data-role="content" >
+            <div data-role="content" id="middle">
                 <form action=verify.php method=POST align="center">
                     <label for="username">Username:</label>
-                    <input type="text" data-clear-btn="true" name="username" id="text_1" value="">
+                    <input type="text" data-clear-btn="true" name="username" value="">
                     <label for="password">Password:</label>
-                    <input type="password" data-clear-btn="true" name="password" id="text_1" value="">
+                    <input type="password" data-clear-btn="true" name="password" value="">
                     <input type="submit" value="Login">
                 </form>
-
+                <center><img src="images/easter_egg.png" alt="easter_egg"></center>
             </div>
             <!-- /content -->
             <div data-role="footer">

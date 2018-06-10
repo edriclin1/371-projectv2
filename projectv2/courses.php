@@ -1,21 +1,7 @@
 <?PHP
 
-// connect to mysql database
-$l=mysqli_connect("localhost:6306","student12","pass12","student12");
-
-// connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
-
-$learn = $rest->readVersion($access_token);
+require("database_connection.php");
+require("blackboard_connection.php");
 
 ?>
 <html>
@@ -48,18 +34,8 @@ $learn = $rest->readVersion($access_token);
             <!-- /header -->
             <div data-role="content" >
                 <?php
-                session_start();
 
-                // check if not logged in
-                if ($_SESSION['auth'] == "") {
-                    echo "<h2>Oops! You are not signed in.</h2>";
-                    echo "<a href=\"login.php\">Click here to sign in.</a>";
-                    echo "</div>";
-                    echo "<div data-role=\"footer\">";
-                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
-                    echo "</div><!-- footer -->";
-                    die();
-                }
+                require("confirm_logged_in.php");
 
                 echo "<h2>Enrolled Courses for ".$_SESSION['auth']."</h2>";
                 echo "<h3>Click \"register for courses\" to see the full course selection.</h3>";
@@ -108,18 +84,8 @@ $learn = $rest->readVersion($access_token);
             <!-- /header -->
             <div data-role="content" >
                 <?php
-                session_start();
 
-                // check if not logged in
-                if ($_SESSION['auth'] == "") {
-                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
-                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
-                    echo "</div>";
-                    echo "<div data-role=\"footer\">";
-                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
-                    echo "</div><!-- footer -->";
-                    die();
-                }
+                require("confirm_logged_in.php");
 
                 echo "<center><h2>Select a course to register for:</h2></center>";
                 echo "<h3>Click \"view enrolled courses\" to see your current courses.</h3>";

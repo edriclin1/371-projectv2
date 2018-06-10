@@ -9,6 +9,7 @@ session_unset();
 // destroy the session
 session_destroy();
 
-header("Location:login.php"); /* Redirect browser */
+// redirect browser
+header("Location:login.php");
 exit;
 ?>

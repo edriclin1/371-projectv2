@@ -1,8 +1,8 @@
 <?PHP
 session_start();
 
-// connect to mysql database
-$l=mysqli_connect("localhost:6306","student12","pass12","student12");
+require("database_connection.php");
+require("blackboard_connection.php");
 
 // select student row with username
 $query = "SELECT * FROM Students WHERE user_name LIKE '".$_POST["username"]."'";
@@ -11,20 +11,6 @@ $query = "SELECT * FROM Students WHERE user_name LIKE '".$_POST["username"]."'";
 //executing query
 $r = mysqli_query($l,$query);
 $row = mysqli_fetch_array($r);
-
-// connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
-
-$learn = $rest->readVersion($access_token);
 
 ?>
 
@@ -51,12 +37,12 @@ $learn = $rest->readVersion($access_token);
 
                 // check correct password
                 if($_POST["password"] == $row["password"] && !empty($_POST["username"]) && isset($row)) {
-                    echo "<center><h1>Welcome, " . $row["given_name"] . " " . $row["family_name"] . "!<h1></center>";
+                    echo "<h2>Welcome, " . $row["given_name"] . " " . $row["family_name"] . "!</h2>";
                     echo "<center><a href=\"account.php\">Go to your account.</a></center>";
                     $_SESSION['auth'] = $_POST['username'];
                     echo $_SESSION['auth'];
                 } else {
-                    echo "<center><h2>Oops! You entered an invalid username and password.</h2></center>";
+                    echo "<h2>Oops! You entered an invalid username and password.</h2>";
                     echo "<center><a href=\"login.php\">Return to the sign in page.</a></center>";
                     //logout
                     $_SESSION['auth'] = "";
