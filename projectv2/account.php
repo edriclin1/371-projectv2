@@ -23,9 +23,9 @@ $learn = $rest->readVersion($access_token);
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Electric Currents Blackboard v2 - Login</title>
+        <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet"  href="css/jquery_pages.css">
         <link rel="stylesheet" href="css/jquery_pages2.css">
-        <link rel="stylesheet" href="css/styles.css">
         <link rel="shortcut icon" href="https://demos.jquerymobile.com/1.3.2/favicon.ico">
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/_assets/js/index.js"></script>
@@ -53,17 +53,17 @@ $learn = $rest->readVersion($access_token);
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
-                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
-                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "<h2>Oops! You are not signed in.</h2>";
+                    echo "<a href=\"login.php\">Click here to sign in.</a>";
                     echo "</div>";
                     echo "<div data-role=\"footer\">";
-                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
                     echo "</div><!-- footer -->";
                     die();
                 }
                 ?>
-                <h2><center>Welcome to Blackboard V2! </center></h2>
-                <h3><center>Register for courses or change your password using the tabs above.</center></h3>
+                <h2>Welcome to Blackboard V2!</h2>
+                <h3>Register for courses or change your password using the tabs above.</h3>
                 <br />
                 <!--
                 <center><a href="courses.php">View/Register for Courses</a></center>
@@ -75,7 +75,7 @@ $learn = $rest->readVersion($access_token);
             <!-- /content -->
             <div data-role="footer">
                 <?PHP
-                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
                 ?>
             </div><!-- footer -->
         </div>

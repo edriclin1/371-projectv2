@@ -52,16 +52,17 @@ $learn = $rest->readVersion($access_token);
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
-                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
-                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "<h2>Oops! You are not signed in.</h2>";
+                    echo "<a href=\"login.php\">Click here to sign in.</a>";
                     echo "</div>";
                     echo "<div data-role=\"footer\">";
-                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
                     echo "</div><!-- footer -->";
                     die();
                 }
 
-                echo "<center><h2>Enrolled Courses for ".$_SESSION['auth']."</h2></center>";
+                echo "<h2>Enrolled Courses for ".$_SESSION['auth']."</h2>";
+                echo "<h3>Click \"register for courses\" to see the full course selection.</h3>";
 
                 // enroll user for courses that they registered for
                 $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
@@ -78,7 +79,7 @@ $learn = $rest->readVersion($access_token);
                     echo "<li>".$row['course_name']."</li>";
                 }
                 echo "</ul>";
-                echo "<center><a data-role=\"button\" href=\"#two\">Register for Courses</a></center>";
+                echo "<a data-role=\"button\" rel=\"external\" href=\"#two\">Register for Courses</a>";
                 // echo "<center><a href=\"account.php\">Return to Account</a></center>";
 
                 ?>
@@ -121,6 +122,7 @@ $learn = $rest->readVersion($access_token);
                 }
 
                 echo "<center><h2>Select a course to register for:</h2></center>";
+                echo "<h3>Click \"view enrolled courses\" to see your current courses.</h3>";
 
                 // select all courses
                 $query = "SELECT * FROM Courses";

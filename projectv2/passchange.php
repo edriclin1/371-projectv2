@@ -49,15 +49,18 @@ $learn = $rest->readVersion($access_token);
 
                 // check if not logged in
                 if ($_SESSION['auth'] == "") {
-                    echo "<center><h2>Oops! You are not signed in.</h2></center>";
-                    echo "<center><a href=\"login.php\">Click here to sign in.</a></center>";
+                    echo "<h2>Oops! You are not signed in.</h2>";
+                    echo "<a href=\"login.php\">Click here to sign in.</a>";
                     echo "</div>";
                     echo "<div data-role=\"footer\">";
-                    echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                    echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
                     echo "</div><!-- footer -->";
                     die();
                 }
                 ?>
+                <h2>Password Change</h2>
+                <h3>Enter your current password and desired new password.</h3>
+                <br>
                 <form action="update.php" method="POST" align="center">
                     <label for="oldPassword">Old Password:</label>
                     <input type="password" data-clear-btn="true" name="oldPassword" value="">
@@ -71,7 +74,7 @@ $learn = $rest->readVersion($access_token);
             <!-- /content -->
             <div data-role="footer">
                 <?PHP
-                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                echo "<h4>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</h4>";
                 ?>
             </div><!-- footer -->
         </div>
