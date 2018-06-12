@@ -43,7 +43,7 @@ require("blackboard_connection.php");
                 // enroll user for courses that they registered for
                 $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
                 $r = mysqli_query($l,$query);
-                echo $query;
+                // echo $query;
 
                 // select courses user is enrolled in
                 $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
