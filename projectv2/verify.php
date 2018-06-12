@@ -4,8 +4,8 @@ session_start();
 require("database_connection.php");
 require("blackboard_connection.php");
 
-// select student row with username
-$query = "SELECT * FROM Students WHERE user_name LIKE '".$_POST["username"]."'";
+// select users row with username
+$query = "SELECT * FROM Users WHERE user_name LIKE '".$_POST["username"]."' GROUP BY user_name";
 //echo $query;
 
 //executing query
@@ -40,7 +40,7 @@ $row = mysqli_fetch_array($r);
                     echo "<h2>Welcome, " . $row["given_name"] . " " . $row["family_name"] . "!</h2>";
                     echo "<center><a href=\"account.php\">Go to your account.</a></center>";
                     $_SESSION['auth'] = $_POST['username'];
-                    echo $_SESSION['auth'];
+                    //echo $_SESSION['auth'];
                 } else {
                     echo "<h2>Oops! You entered an invalid username and password.</h2>";
                     echo "<center><a href=\"login.php\">Return to the sign in page.</a></center>";

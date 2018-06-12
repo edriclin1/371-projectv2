@@ -37,8 +37,8 @@ require("blackboard_connection.php");
 
                 require("confirm_logged_in.php");
 
-                // select student with currently logged in in username
-                $query = "SELECT * FROM Students WHERE user_name LIKE '".$_SESSION['auth']."'";
+                // select user with currently logged in in username
+                $query = "SELECT * FROM Users WHERE user_name LIKE '".$_SESSION['auth']."'";
                 $r = mysqli_query($l,$query);
                 $row = mysqli_fetch_array($r);
 
@@ -49,7 +49,7 @@ require("blackboard_connection.php");
                     if (stripslashes(strip_tags($_POST['newPassword'])) == $_POST['newPassword']) {
 
                         // change old password to new password
-                        $query = "UPDATE Students SET password = '".$_POST['newPassword']."' WHERE user_name LIKE '".$_SESSION['auth']."'";
+                        $query = "UPDATE Users SET password = '".$_POST['newPassword']."' WHERE user_name LIKE '".$_SESSION['auth']."'";
                         $r = mysqli_query($l,$query);
                         echo "<h2>Your password has successfully been changed.</h2>";
                     } else {

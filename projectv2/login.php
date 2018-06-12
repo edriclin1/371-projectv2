@@ -32,7 +32,8 @@ require("blackboard_connection.php");
                     <input type="password" data-clear-btn="true" name="password" value="">
                     <input type="submit" value="Login">
                 </form>
-                <center><img src="images/easter_egg.png" alt="easter_egg"></center>
+                <center><img src="images/easter_egg.png" alt="easter_egg" id="easter_egg"></center>
+                <center><h4 id="cis">CIS 371 RULES!</h4></center>
             </div>
             <!-- /content -->
             <div data-role="footer">

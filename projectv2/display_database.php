@@ -1,10 +1,10 @@
 <?PHP
 
 // connect to mysql database
-$l=mysqli_connect("localhost:6306","student12","pass12","student12");
+require("database_connection.php");
 
-// select entire students table
-$query = "SELECT * FROM Students";
+// select entire Users table
+$query = "SELECT * FROM Users";
 echo $query;
 
 //executing query
@@ -12,9 +12,9 @@ $r = mysqli_query($l,$query);
 
 //working with the recordset
 echo "<table border=1 cellpadding=10 >";
-echo "<tr><th>ID</th><th>Username</th><th>Given Name</th><th>Family Name</th><th>Password</th></tr>";
+echo "<tr><th>ID</th><th>Username</th><th>Given Name</th><th>Family Name</th><th>Role</th><th>Password</th></tr>";
 
-// display students table
+// display Users table
 while($row=mysqli_fetch_array($r)) {
     echo "<tr>";
         echo "<td>";
@@ -25,6 +25,8 @@ while($row=mysqli_fetch_array($r)) {
             echo $row['given_name'];
         echo "</td><td>";
             echo $row['family_name'];
+        echo "</td><td>";
+            echo $row['role'];
         echo "</td><td>";
             echo $row['password'];
         echo "</td>";

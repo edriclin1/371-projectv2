@@ -34,15 +34,55 @@ require("blackboard_connection.php");
             <!-- /header -->
             <div data-role="content" >
                 <?php require("confirm_logged_in.php"); ?>
+
                 <h2>Welcome to Blackboard V2!</h2>
                 <h3>Register for courses or change your password using the tabs above.</h3>
                 <br />
+                
+                <?php
+                // select user row with username
+                $query = "SELECT * FROM Users WHERE user_name LIKE '". $_SESSION['auth'] ."'";
+                //echo $query;
+
+                //executing query
+                $r = mysqli_query($l,$query);
+                $row = mysqli_fetch_array($r);
+                echo $row->institutionRoleIds[0];
+
+                if($row->institutionRoleIds[0] == "STAFF") {
+                    // select courses user is enrolled in
+                    $query2 = "SELECT * FROM Courses";
+                    $r2 = mysqli_query($l,$query2);
+                    // display courses user is enrolled in
+                    echo "<ul data-role=\"listview\" data-inset=\"true\">";
+                    while($row2=mysqli_fetch_array($r2)) {
+                        echo "<li>".$row2['course_name']."</li>";
+                    }
+                    echo "</ul>";
+
+                } else {
+                    // select courses user is enrolled in
+                    $query2 = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
+                    $r2 = mysqli_query($l,$query2);
+                    // display courses user is enrolled in
+                    echo "<ul data-role=\"listview\" data-inset=\"true\">";
+                    while($row2=mysqli_fetch_array($r2)) {
+                        echo "<li>".$row2['course_name']."</li>";
+                    }
+                    echo "</ul>";
+                }
+
+                ?>
+
                 <!--
                 <center><a href="courses.php">View/Register for Courses</a></center>
                 <center><a href="passchange.php">Change Password</a></center>
                 <center><a href="logout.php">Log Out</a></center>
                 <br />
                 -->
+                
+
+
             </div>
             <!-- /content -->
             <div data-role="footer">

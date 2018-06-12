@@ -1,9 +1,15 @@
 $(document).ready(function(){
-    $("img").click(function(){
+    document.getElementById("cis").style.display = "none";
+
+    $("#easter_egg").on("click", function(){
         $(this).hide();
-        var h = document.createElement("h3");
-        var t = document.createTextNode("CIS 371 RULES!");
-        h.appendChild(t);
-        document.getElementById("middle").appendChild(h);
+        document.getElementById("cis").style.display = "block";
     });
+    
+    $("#cis").on("click", function(){
+        $(this).hide();
+        document.getElementById("easter_egg").style.display = "block";
+    });
+    
+
 });

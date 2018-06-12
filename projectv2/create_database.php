@@ -1,16 +1,8 @@
 <?PHP
 
 // connect to blackboard rest api
-$clientURL = "http://bb.dataii.com:8080";
-
-require_once('classes/Rest.class.php');
-require_once('classes/Token.class.php');
-
-$rest = new Rest($clientURL);
-$token = new Token();
-
-$token = $rest->authorize();
-$access_token = $token->access_token;
+require("database_connection.php");
+require("blackboard_connection.php");
 
 // get user data from blackboard rest api
 $users = $rest->readAllUsers($access_token);
@@ -20,20 +12,17 @@ $u=$users->results;
 $courses = $rest->readAllCourses($access_token);
 $c=$courses->results;
 
-
-// connect to mysql database
-$l=mysqli_connect("localhost:6306","student12","pass12","student12");
-
 // delete students table if one has already been created
-$query = "DROP TABLE Students";
+$query = "DROP TABLE Users";
 $r = mysqli_query($l,$query);
 
 // recreate students table
-$query = "CREATE TABLE Students (
+$query = "CREATE TABLE Users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(30) NOT NULL,
     given_name VARCHAR(30) NOT NULL,
     family_name VARCHAR(30) NOT NULL,
+    role VARCHAR(30) NOT NULL,
     password VARCHAR(15),
     UNIQUE (user_name)
     )";
@@ -44,17 +33,15 @@ foreach($u as $row) {
 
     // check if user is a student
     $institution_role_id = $row->institutionRoleIds[0];
-    if (strcmp($institution_role_id, "STUDENT") == 0) {
+    
+    // get fields
+    $user_name = $row->userName;
+    $given_name = $row->name->given;
+    $family_name = $row->name->family;
 
-        // get student fields
-        $user_name = $row->userName;
-        $given_name = $row->name->given;
-        $family_name = $row->name->family;
-
-        // insert fields into database
-        $query = "INSERT INTO Students (user_name, given_name, family_name) values ('$user_name', '$given_name', '$family_name')";
-        $r = mysqli_query($l,$query);
-    }
+    // insert fields into database
+    $query = "INSERT INTO Users (user_name, given_name, family_name, role) values ('$user_name', '$given_name', '$family_name', '$institution_role_id')";
+    $r = mysqli_query($l,$query);
 }
 
 // delete courses table if one has already been created

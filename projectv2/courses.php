@@ -43,7 +43,20 @@ require("blackboard_connection.php");
                 // enroll user for courses that they registered for
                 $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
                 $r = mysqli_query($l,$query);
-                echo $query;
+                //echo $query;
+
+                $query = "UPDATE Courses SET num_enrolled=num_enrolled+1 WHERE course_name='".$_POST['course_name']."'";
+                $r = mysqli_query($l,$query);
+                //echo $query;
+
+                // unenroll user for courses that they registered for
+                $query = "DELETE FROM Enrolled WHERE course_name='".$_POST['unregister']."'";
+                $r = mysqli_query($l,$query);
+                //echo $query;
+
+                $query = "UPDATE Courses SET num_enrolled=num_enrolled-1 WHERE course_name='".$_POST['unregister']."'";
+                $r = mysqli_query($l,$query);
+                //echo $query;
 
                 // select courses user is enrolled in
                 $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
@@ -56,6 +69,7 @@ require("blackboard_connection.php");
                 }
                 echo "</ul>";
                 echo "<a data-role=\"button\" rel=\"external\" href=\"#two\">Register for Courses</a>";
+                echo "<a data-role=\"button\" rel=\"external\" href=\"#three\">Unregister for Courses</a>";
                 // echo "<center><a href=\"account.php\">Return to Account</a></center>";
 
                 ?>
@@ -104,14 +118,64 @@ require("blackboard_connection.php");
                 echo "</select>";
                 echo "<input type=\"submit\" value=\"Register\">";
                 echo "</form>";
-
-                echo "</ul>";
                 echo "<center><a data-role=\"button\" href=\"#one\">View Enrolled Courses</a></center>";
                 // echo "<center><a href=\"account.php\">Return to Account</a></center>";
 
                 ?>
             </div>
             <!-- /content -->
+
+            <div data-role="footer">
+                <?PHP
+                echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
+                ?>
+            </div><!-- footer -->
+        </div>
+        
+        <!-- Start of first page: #three -->
+        <div data-role="page" id="three">
+            <div data-role="header">
+                <h1>Electric Currents Blackboard v2</h1>
+                <div data-role="navbar" data-grid="c">
+                    <ul>
+                        <li><a href="account.php">Account</a></li>
+                        <li><a href="courses.php" class="ui-btn-active">Courses</a></li>
+                        <li><a href="passchange.php">Change Password</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+            </div>
+            <!-- /header -->
+            <div data-role="content" >
+                <?php
+
+                require("confirm_logged_in.php");
+
+                echo "<center><h2>Select a course to Unregister:</h2></center>";
+                echo "<h3>Click \"view enrolled courses\" to see your current courses.</h3>";
+
+                // select all courses
+                $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
+                $r = mysqli_query($l,$query);
+
+                echo "<form action=courses.php#one method=POST align=\"center\">";
+                echo "<select name=\"unregister\" id=\"select-choice-1\">";
+
+                // display all courses
+                while($row=mysqli_fetch_array($r)) {
+                    echo "<option value='".$row['course_name']."'>".$row['course_name']."</option>";
+                }
+
+                echo "</select>";
+                echo "<input type=\"submit\" value=\"Unregister\">";
+                echo "</form>";
+                echo "<center><a data-role=\"button\" href=\"#one\">View Enrolled Courses</a></center>";
+                // echo "<center><a href=\"account.php\">Return to Account</a></center>";
+
+                ?>
+            </div>
+            <!-- /content -->
+
             <div data-role="footer">
                 <?PHP
                 echo "<h4><center>Blackboard Version: ". $learn->learn->major .".".$learn->learn->minor.".".$learn->learn->patch."</center></h4>";
