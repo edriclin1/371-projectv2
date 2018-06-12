@@ -43,6 +43,7 @@ require("blackboard_connection.php");
                 // enroll user for courses that they registered for
                 $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
                 $r = mysqli_query($l,$query);
+
                 //echo $query;
 
                 $query = "UPDATE Courses SET num_enrolled=num_enrolled+1 WHERE course_name='".$_POST['course_name']."'";
