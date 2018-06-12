@@ -1,16 +1,16 @@
 //Final Version
 
 $(document).ready(function(){
-    document.getElementById("cis").style.display = "none";
+    $("#cis").hide();
 
     $("#easter_egg").on("click", function(){
-        $(this).hide();
-        document.getElementById("cis").style.display = "block";
+        $("#easter_egg").hide();
+        $("#cis").show();
     });
     
     $("#cis").on("click", function(){
-        $(this).hide();
-        document.getElementById("easter_egg").style.display = "block";
+        $("#cis").hide();
+        $("#easter_egg").show();
     });
 
 });
