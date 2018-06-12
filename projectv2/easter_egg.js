@@ -10,6 +10,5 @@ $(document).ready(function(){
         $(this).hide();
         document.getElementById("easter_egg").style.display = "block";
     });
-    
 
 });

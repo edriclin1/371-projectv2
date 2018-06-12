@@ -33,16 +33,24 @@ foreach($u as $row) {
 
     // check if user is a student
     $institution_role_id = $row->institutionRoleIds[0];
-    
+
+    if(strcmp($institution_role_id, "STUDENT") == 0) {
+
     // get fields
-    $user_name = $row->userName;
-    $given_name = $row->name->given;
-    $family_name = $row->name->family;
+    $user_name = stripslashes(strip_tags($row->userName));
+    $given_name = stripslashes(strip_tags($row->name->given));
+    $family_name = stripslashes(strip_tags($row->name->family));
 
     // insert fields into database
-    $query = "INSERT INTO Users (user_name, given_name, family_name, role) values ('$user_name', '$given_name', '$family_name', '$institution_role_id')";
+    $query = "INSERT INTO Users (user_name, given_name, family_name) values ('$user_name', '$given_name', '$family_name')";
     $r = mysqli_query($l,$query);
+        
+    }
 }
+
+// delete enrolled table if one has already been created
+$query = "DROP TABLE Enrolled";
+$r = mysqli_query($l,$query);
 
 // delete courses table if one has already been created
 $query = "DROP TABLE Courses";
@@ -57,31 +65,30 @@ $query = "CREATE TABLE Courses (
     )";
 $r = mysqli_query($l,$query);
 
-// insert blackboard course data into table
-foreach($c as $row) {
-
-    // get course fields
-    $course_name = $row->name;
-
-    //echo $course_name."<br>";
-
-    // insert fields into database
-    $query = "INSERT INTO Courses (course_name, num_enrolled) values ('$course_name', 0)";
-    $r = mysqli_query($l,$query);
-}
-
-// delete enrolled table if one has already been created
-$query = "DROP TABLE Enrolled";
-$r = mysqli_query($l,$query);
-
 // recreate enrolled table
 $query = "CREATE TABLE Enrolled (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(30) NOT NULL,
     course_name VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_name) REFERENCES Students(user_name),
+    FOREIGN KEY (user_name) REFERENCES Users(user_name),
     FOREIGN KEY (course_name) REFERENCES Courses(course_name)
     )";
 $r = mysqli_query($l,$query);
+
+// insert blackboard course data into table
+foreach($c as $row) {
+
+    // get course fields
+    $course_name =   stripslashes(strip_tags($row->name));
+    $course_name =   stripslashes(strip_tags($row->name));;
+
+    //echo $course_name."<br>";
+
+    // insert fields into database
+    $query = "INSERT INTO Courses (course_name, num_enrolled) values ('$course_name', 0)";
+
+    $r = mysqli_query($l,$query);
+}
+
 
 ?>

@@ -1,0 +1,11 @@
+<h3>
+Hello, Welcome to Electic Current's BlackBoard. You can register your courses here. Click on the upper tabs to navigate the site.
+<br><br>
+    Courses: Register courses available.
+<br>    
+    Change Password: Change your password to a new password for use.
+<br>
+    Logout: Logout of your account.
+<br>
+
+</h3>

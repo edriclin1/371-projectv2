@@ -16,6 +16,7 @@ require("blackboard_connection.php");
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/_assets/js/index.js"></script>
         <script src="https://demos.jquerymobile.com/1.3.2/js/jquery.mobile-1.3.2.min.js"></script>
+
     </head>
     <body>
         <!-- Start of first page: #one -->
@@ -39,40 +40,9 @@ require("blackboard_connection.php");
                 <h3>Register for courses or change your password using the tabs above.</h3>
                 <br />
                 
-                <?php
-                // select user row with username
-                $query = "SELECT * FROM Users WHERE user_name LIKE '". $_SESSION['auth'] ."'";
-                //echo $query;
-
-                //executing query
-                $r = mysqli_query($l,$query);
-                $row = mysqli_fetch_array($r);
-                echo $row->institutionRoleIds[0];
-
-                if($row->institutionRoleIds[0] == "STAFF") {
-                    // select courses user is enrolled in
-                    $query2 = "SELECT * FROM Courses";
-                    $r2 = mysqli_query($l,$query2);
-                    // display courses user is enrolled in
-                    echo "<ul data-role=\"listview\" data-inset=\"true\">";
-                    while($row2=mysqli_fetch_array($r2)) {
-                        echo "<li>".$row2['course_name']."</li>";
-                    }
-                    echo "</ul>";
-
-                } else {
-                    // select courses user is enrolled in
-                    $query2 = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
-                    $r2 = mysqli_query($l,$query2);
-                    // display courses user is enrolled in
-                    echo "<ul data-role=\"listview\" data-inset=\"true\">";
-                    while($row2=mysqli_fetch_array($r2)) {
-                        echo "<li>".$row2['course_name']."</li>";
-                    }
-                    echo "</ul>";
-                }
-
-                ?>
+                <p id="div1">
+                <button type="button" id="ajax">Help</button>
+                </p>
 
                 <!--
                 <center><a href="courses.php">View/Register for Courses</a></center>
@@ -80,6 +50,17 @@ require("blackboard_connection.php");
                 <center><a href="logout.php">Log Out</a></center>
                 <br />
                 -->
+                
+                <script>
+                $("#ajax").click(function(){
+                    $("#div1").load("help.txt", function(responseTxt, statusTxt, xhr){
+                        if(statusTxt == "success")
+                            alert("External content loaded successfully!");
+                        if(statusTxt == "error")
+                            alert("Error: " + xhr.status + ": " + xhr.statusText);
+                    });
+                });
+                </script>
                 
 
 

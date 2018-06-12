@@ -40,27 +40,32 @@ require("blackboard_connection.php");
                 echo "<h2>Enrolled Courses for ".$_SESSION['auth']."</h2>";
                 echo "<h3>Click \"register for courses\" to see the full course selection.</h3>";
 
+                $user_input = stripslashes(strip_tags($_SESSION['auth']));
+                $register_input = stripslashes(strip_tags($_POST['course_name']));
+
                 // enroll user for courses that they registered for
-                $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$_SESSION['auth']."', '".$_POST['course_name']."')";
+                $query = "INSERT INTO Enrolled (user_name, course_name) values ('".$user_input."', '".$register_input."')";
                 $r = mysqli_query($l,$query);
 
                 //echo $query;
 
-                $query = "UPDATE Courses SET num_enrolled=num_enrolled+1 WHERE course_name='".$_POST['course_name']."'";
+                $query = "UPDATE Courses SET num_enrolled=num_enrolled+1 WHERE course_name='".$register_input."'";
                 $r = mysqli_query($l,$query);
                 //echo $query;
+
+                $unregister_input = stripslashes(strip_tags($_POST['unregister']));
 
                 // unenroll user for courses that they registered for
-                $query = "DELETE FROM Enrolled WHERE course_name='".$_POST['unregister']."'";
+                $query = "DELETE FROM Enrolled WHERE course_name='".$unregister_input."'";
                 $r = mysqli_query($l,$query);
                 //echo $query;
 
-                $query = "UPDATE Courses SET num_enrolled=num_enrolled-1 WHERE course_name='".$_POST['unregister']."'";
+                $query = "UPDATE Courses SET num_enrolled=num_enrolled-1 WHERE course_name='".$unregister_input."'";
                 $r = mysqli_query($l,$query);
                 //echo $query;
 
                 // select courses user is enrolled in
-                $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$_SESSION['auth']."'";
+                $query = "SELECT * FROM Enrolled WHERE user_name LIKE '".$user_input."'";
                 $r = mysqli_query($l,$query);
 
                 // display courses user is enrolled in
@@ -160,7 +165,7 @@ require("blackboard_connection.php");
                 $r = mysqli_query($l,$query);
 
                 echo "<form action=courses.php#one method=POST align=\"center\">";
-                echo "<select name=\"unregister\" id=\"select-choice-1\">";
+                echo "<select name=\"unregister\" id=\"select-choice-2\">";
 
                 // display all courses
                 while($row=mysqli_fetch_array($r)) {
